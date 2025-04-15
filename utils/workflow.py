@@ -6,6 +6,25 @@ nlp = spacy.load("en_core_web_sm")
 doc = nlp(project_description)
 verbs = [token.text for token in doc if token.pos_ == "VERB"]
 
+class WorkflowManager:
+    def __init__(self):
+        self.phases = []  # No common phases
+    
+    def create_task(self, title: str, description: str, **kwargs):
+        return {
+            "id": str(len(self.tasks) + 1),
+            "title": title,
+            "description": description,
+            **kwargs
+        }
+    
+    def add_subtask(self, parent_id: str, title: str):
+        return {
+            "id": f"{parent_id}.{len(self.get_subtasks(parent_id)) + 1}",
+            "title": title,
+            "parent_id": parent_id
+        }
+
 def generate_workflow(project_description: str) -> Dict:
     """Convert text into a structured workflow JSON."""
     # Example: Split sentences into tasks (customize with NLP for real use)
