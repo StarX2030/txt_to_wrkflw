@@ -6,8 +6,6 @@ nlp = spacy.load("en_core_web_sm")
 doc = nlp(project_description)
 verbs = [token.text for token in doc if token.pos_ == "VERB"]
 
-st.download_button("Download JSON", json.dumps(workflow), "workflow.json")
-
 def generate_workflow(project_description: str) -> Dict:
     """Convert text into a structured workflow JSON."""
     # Example: Split sentences into tasks (customize with NLP for real use)
